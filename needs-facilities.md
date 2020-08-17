@@ -29,6 +29,7 @@ Scenario: Report visitor trends during a week of operation
 
 Scenario: Alert when seating capacity is full
 
-  Given
-  When
-  Then
+  Given Data from footfall sensor is available
+  When incoming footfall in a day "minus" outgoing footfall in a day
+  is greater than total seating capacity
+  Then raise alert "Seating capacity is full"
