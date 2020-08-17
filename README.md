@@ -27,13 +27,10 @@ State the features of the visit-counter for the following stakeholders:
 - Facilities manager (manages seating and parking)
 - Director (ensures availability of beds and nursing staff)
 
-Each feature would consist of scenarios.
-Capture each scenario as:
+Each feature consists of scenarios as:
 
 - initial condition (Given...)
 - event (When...)
 - effect (Then...)
 
-Place features given to each stakeholder in the corresponding file.
-
-As always, avoid passive voice :)
+Features for each stakeholder are in the corresponding file.
