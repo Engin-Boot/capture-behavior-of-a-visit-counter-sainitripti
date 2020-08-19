@@ -2,41 +2,30 @@
 
 Scenario: Show patient visits during working days and holidays
 
-  Given A patient gets a new entry card from entry card issuer on admission to hospital
-  When A patient gets a new entry card on working day
-  Then increment the "patient counter on working day" by one
+  Given "entry card issuer" issues entry card to patients
+  on admission to the hospital
+  And "patient visit tracker" module keeps a count of patients
+  visiting the hospital in a day using data from "entry card issuer"
+  and updates the "patient visit" table
+  in the "visit counter" database at the end of the day
   
-  Given The patient submits the entry card on discharge from the hospital
-  When A patient submits the entry card on a working day
-  Then decrement the "patient counter on working day" by one
+  When director clicks "Show patient visits"
   
-  Given A patient gets a new entry card from entry card issuer on admission to hospital
-  When A patient gets a new entry card on a holiday
-  Then increment the "patient counter on holiday" by one
+  Then display a report of
+  average patient visits on each days of the week (both working days and holidays),
+  working day with largest number of patient visits,
+  working day with smallest number of patient visits,
+  holiday with largest number of patient visits
+  and holiday with smallest number of patient visits
+  using last fifty records from "patient visit" table in database
   
-  Given The patient submits the entry card on discharge from the hospital
-  When A patient submits the entry card on a holiday
-  Then decrement the "patient counter on holiday" by one
-
 Scenario: Compute parking slots to reserve for visiting specialists
 
-  Given A visiting specialist confirms the visit
-  one hour before the visit
-  And the director reserves a parking spot one hour in advance
-  When A visiting specialist confirms the visit
-  Then increment the "reserve parking for specialist counter" by one
+  Given A schedule for all visiting specialists is available
+  And director has configured system timer to trigger in every six hours
 
-  Given A visiting specialist confirms the visit
-  one hour before the visit
-  And the director reserves a parking spot one hour in advance
-  When A visiting specialist cancels the visit
-  Then decrement the "reserve parking for specialist counter" by one
+  When system timer triggers
 
-  Given A visiting specialist confirmed the visit
-  When The visiting specialist gets entry card
-  Then decrement the "reserve parking for specialist counter" by one
-  And increment the "specialist parking in use counter" by one
-
-  Given A visiting specialist confirmed the visit
-  When The visiting specialist submits the entry card
-  Then decrement the "specialist parking in use counter" by one
+  Then calculate count of "visiting specialists"
+  visiting the hospital in the next six hours and store the result in
+  "visiting specialist parking" table in the "visit counter" database with timestamps
