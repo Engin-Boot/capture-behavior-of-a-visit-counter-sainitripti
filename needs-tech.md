@@ -10,8 +10,9 @@ that runs the visit-counter
 
 Scenario: Reconcile counts if the sensor is offline for a while
 
-  Given Time duration for which sensor is offline
+  Given sensor is offline
+  And server stores sensor data in the cloud every five minutes
   When sensor comes online
-  Then determine average increment or decrement in values
-  using machine learning algorithms and data trends
-  And increment data values by estimated values
+  Then Server retrieves last checkpoint of sensor data from cloud
+  And reset the sensor with the retrieved data
+  And add log with the time stamps
