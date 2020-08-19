@@ -28,4 +28,4 @@ Scenario: Compute parking slots to reserve for visiting specialists
 
   Then calculate count of "visiting specialists"
   visiting the hospital in the next six hours and store the result in
-  "visiting specialist parking" table in the "visit counter" database with timestamps
+  "visiting specialist parking" table in the "visit counter" database with time stamp
